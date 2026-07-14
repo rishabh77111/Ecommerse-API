@@ -1,7 +1,9 @@
 import express from 'express';
+import {Request,Response,NextFunction} from 
+//import userRouter from './routes/user.routes';
 
 const app=express();
-const port=8004;
+
 
 app.get("/",(req,res)=>{
   res.status(200).json({
@@ -11,6 +13,9 @@ app.get("/",(req,res)=>{
     data:null,
   });
 })
-app.listen(port,()=>{
-    console.log(`server is running at http://localhost:${port}`);
-});
+
+//!using routes
+//app.use("/users",userRouter)
+
+
+export default app;
