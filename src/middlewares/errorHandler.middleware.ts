@@ -11,5 +11,6 @@ export const errorHandler=(error:any,req:Request,res:Response,next:NextFunction)
       status,
       success:false,
       data:null,
+      stack:error?.stack,
    });
 }
