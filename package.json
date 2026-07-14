@@ -2,9 +2,12 @@
   "name": "broadways-infosys-ecommerseapi",
   "version": "1.0.0",
   "main": "server.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
-    "start": "node --watch ./src/server.js"
+    "start": "node  ./dist/server.js",
+    "dev":"node  ./src/server.ts",
+    "build":"tsc"
+
   },
   "keywords": [],
   "author": "",

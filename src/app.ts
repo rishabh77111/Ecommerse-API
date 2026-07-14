@@ -22,6 +22,15 @@ app.get("/",(req,res)=>{
 //app.use("/users",userRouter)
 
 //! path not found
+app.use((req,res)=>{
+    const message=`can not ${req.method} on ${req.path}`;
+    res.status(404).json({
+        message,
+        status:"fail",
+        sucess:false,
+        data:null,
+    })
+})
 
 //! error handler middleware
 
