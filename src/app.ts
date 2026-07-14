@@ -1,6 +1,8 @@
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
+import { errorHandler } from './middlewares/errorHandler.middleware.js';
 
 //import userRouter from './routes/user.routes';
+
 
 const app=express();
 
@@ -9,7 +11,7 @@ app.use(express.json());
 
 
 //! health route
-app.get("/",(req,res)=>{
+app.get("/",(req:Request,res:Response,next:NextFunction)=>{
   res.status(200).json({
     message:"server is running",
     success:true,
@@ -22,17 +24,25 @@ app.get("/",(req,res)=>{
 //app.use("/users",userRouter)
 
 //! path not found
-app.use((req,res)=>{
+app.use((req,res,next)=>{
+  
     const message=`can not ${req.method} on ${req.path}`;
-    res.status(404).json({
-        message,
-        status:"fail",
-        sucess:false,
-        data:null,
-    })
+
+    const error:any=new Error(message);
+    error.status="fail";
+    error.statusCode=404;
+    //console.log(error);
+    next(error);
+    // next({
+    //   message,
+    //   status:"fail",
+    //   statusCode:404,
+    // });
 })
 
 //! error handler middleware
+
+app.use(errorHandler);
 
 
 export default app;

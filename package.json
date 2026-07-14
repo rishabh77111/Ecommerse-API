@@ -5,18 +5,20 @@
   "type": "commonjs",
   "scripts": {
     "start": "node  ./dist/server.js",
-    "dev":"node  ./src/server.ts",
-    "build":"tsc"
-
+    "dev": "tsx watch ./src/server.ts",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "mongoose": "^9.7.4"
   },
   "devDependencies": {
-    "@types/express": "^5.0.6"
+    "@types/express": "^5.0.6",
+    "ts-node-dev": "^2.0.0",
+    "tsx": "^4.23.1"
   }
 }
