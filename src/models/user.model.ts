@@ -5,6 +5,7 @@ import mongoose,{ Document } from "mongoose";
 interface IUser extends Document{
 full_name:string;
 email:string;
+role:'USER'|'ADMIN';
 password:string;
 profile_image?:string;
 };
@@ -22,12 +23,19 @@ const userSchema=new mongoose.Schema<IUser>({
     unique:[true,"user already exists with provided"],
     trim:true,
  },
+ role:{
+   type:String,
+   enum: ["USER", "ADMIN"],
+   default:"USER",
+ },
  password:{
     type:String,
     required:[true,"password is required"],
+    select:false,
  },
  profile_image:{
     type:String,
+    default:null,
  }
 },{timestamps:true});
 
