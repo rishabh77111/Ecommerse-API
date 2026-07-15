@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { errorHandler } from './middlewares/errorHandler.middleware.js';
-import authRouter from './routes/auth.routes.js';
+import authRoutes from './routes/auth.routes.js';
 
 //import userRouter from './routes/user.routes';
 
@@ -22,7 +22,8 @@ app.get("/",(req:Request,res:Response,next:NextFunction)=>{
 })
 
 //!using routes
-app.use("/api/v1/auth",authRouter)
+app.use("/api/v1/auth",authRoutes)
+app.use("/api/v1/brands",brandRoutes);
 
 //! path not found
 app.use((req,res,next)=>{

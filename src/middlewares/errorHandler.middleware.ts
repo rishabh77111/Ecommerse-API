@@ -13,4 +13,12 @@ export const errorHandler=(error:any,req:Request,res:Response,next:NextFunction)
       data:null,
       stack:error?.stack,
    });
+
+   // sendResponse(res,{message,
+            
+   //       
+   //     statusCode,
+   //     data:null,
+   //     stack:error?.stack, 
+   //     });
 }

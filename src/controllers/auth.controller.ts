@@ -3,6 +3,7 @@ import User from "../models/user.model";
 import { comparePassword, hashPassword } from "../utils/bcrypt.utils";
 import AppError from "../utils/customError.utils";
 import { catchAsync } from "../utils/catchAsync.utils";
+import { sendResponse } from "../utils/sendResonse.utils";
 
 //! register
 
@@ -49,20 +50,27 @@ export const register = catchAsync(async ( req: Request,res: Response) => {
     //* save user
      await user.save();
     //* success response
-    res.status(201).json({
-      message:"Account created",
+
+    sendResponse(res,{message:"Account created",
       data:{
         _id:user._id,
         email:user.email,
         full_name:user.full_name,
         role:user.role,
       },
-      status:"success",
-      success:true,
+    statusCode:201});
     });
-
- 
-});
+    // res.status(201).json({
+    //   message:"Account created",
+    //   data:{
+    //     _id:user._id,
+    //     email:user.email,
+    //     full_name:user.full_name,
+    //     role:user.role,
+    //   },
+    //   status:"success",
+    //   success:true,
+    // });
 
 //! get profile
 
