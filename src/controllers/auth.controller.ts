@@ -45,7 +45,7 @@ export const register = async (
     //* save user
      await user.save();
     //* success response
-    res.status(200).json({
+    res.status(201).json({
       message:"Account created",
       data:{
         _id:user._id,
@@ -79,6 +79,7 @@ export const login = async (
   next: NextFunction,
 ) => {
   try {
+    
     const {email,password}=req.body;
 
       if(!email){

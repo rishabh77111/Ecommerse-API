@@ -1,11 +1,12 @@
 import mongoose,{ Document } from "mongoose";
+import { Role } from "../@types/enum.types";
 
 //! interface is optional
 
 interface IUser extends Document{
 full_name:string;
 email:string;
-role:'USER'|'ADMIN';
+role:Role;
 password:string;
 profile_image?:string;
 };
@@ -25,8 +26,8 @@ const userSchema=new mongoose.Schema<IUser>({
  },
  role:{
    type:String,
-   enum: ["USER", "ADMIN"],
-   default:"USER",
+   enum: Object.values(Role),
+   default:Role.USER,
  },
  password:{
     type:String,
