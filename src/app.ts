@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { errorHandler } from './middlewares/errorHandler.middleware.js';
 import authRoutes from './routes/auth.routes.js';
-
+import brandRoutes from './routes/brand.routes.js'
 //import userRouter from './routes/user.routes';
 
 

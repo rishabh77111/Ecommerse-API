@@ -1,8 +1,15 @@
-import mongoose from "mongoose";
-const brandSchema=new mongoose.Schema({
+
+import mongoose, { Document } from "mongoose";
+
+interface IBrand extends Document{
+    name:string,
+    description:string,
+    logo?:string,
+}
+const brandSchema=new mongoose.Schema<IBrand>({
     name:{
         type:String,
-        unique: [true, "brand already exists with provided name"],
+        unique: true,
         trim: true,
     },
     description:{
@@ -12,10 +19,10 @@ const brandSchema=new mongoose.Schema({
     },
     logo:{
         type:String,
-        required: [true, "logo is required"],
+        //required: [true, "logo is required"],
     }
     },{timestamps:true});
 
-    const Brand=mongoose.model("brand",brandSchema);
+    const Brand=mongoose.model<IBrand>("brand",brandSchema);
 
     export default Brand;
