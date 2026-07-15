@@ -1,37 +1,41 @@
 import { NextFunction, Request, Response } from "express";
 import User from "../models/user.model";
 import { comparePassword, hashPassword } from "../utils/bcrypt.utils";
+import AppError from "../utils/customError.utils";
+import { catchAsync } from "../utils/catchAsync.utils";
 
 //! register
 
-export const register = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  try {
+export const register = catchAsync(async ( req: Request,res: Response) => {
+ 
     const {full_name,email,password}=req.body;
     if(!full_name){
-      const error:any=new Error("full_name is required");
-      error.status="fail";
-      error.statusCode=400;
-      throw error;
+
+      // const error:any=new Error("full_name is required");
+      // error.status="fail";
+      // error.statusCode=400;
+      // throw error;
+
+      throw new AppError("full_name is required",400);
       
     }
 
     if(!email){
-      const error:any=new Error("email is required");
-      error.status="fail";
-      error.statusCode=400;
-      throw error;
+      // const error:any=new Error("email is required");
+      // error.status="fail";
+      // error.statusCode=400;
+      // throw error;
+      throw new AppError("email is required",400);
       
     }
 
     if(!password){
-      const error:any=new Error("password is required");
-      error.status="fail";
-      error.statusCode=400;
-      throw error;
+      // const error:any=new Error("password is required");
+      // error.status="fail";
+      // error.statusCode=400;
+      // throw error;
+
+      throw new AppError("password is required",400);
       
     }
 
@@ -57,10 +61,8 @@ export const register = async (
       success:true,
     });
 
-  } catch (error) {
-    next(error);
-  }
-};
+ 
+});
 
 //! get profile
 
@@ -83,37 +85,43 @@ export const login = async (
     const {email,password}=req.body;
 
       if(!email){
-      const error:any=new Error("email is required");
-      error.status="fail";
-      error.statusCode=400;
-      throw error;
+      // const error:any=new Error("email is required");
+      // error.status="fail";
+      // error.statusCode=400;
+      // throw error;
+
+       throw new AppError("email is required",400);
       
     }
 
     if(!password){
-      const error:any=new Error("password is required");
-      error.status="fail";
-      error.statusCode=400;
-      throw error;
+      // const error:any=new Error("password is required");
+      // error.status="fail";
+      // error.statusCode=400;
+      // throw error;
+
+       throw new AppError("password is required",400);
       
     }
    
     //* find user by email
     const user=await User.findOne({email}).select("+password");
     if(!user){
-      const error:any =new Error("Invalis Credentials");
-      error.status="fail";
-      error.statusCode=400;
-      throw error;
+      // const error:any =new Error("Invalis Credentials");
+      // error.status="fail";
+      // error.statusCode=400;
+      // throw error;
+       throw new AppError("Invalid Credentials",400);
     }
 
     //* check password
       const isPasswordMatched=await comparePassword(password,user.password);
       if(!isPasswordMatched){
-      const error:any =new Error("Invalis Credentials");
-      error.status="fail";
-      error.statusCode=400;
-      throw error;
+      // const error:any =new Error("Invalis Credentials");
+      // error.status="fail";
+      // error.statusCode=400;
+      // throw error;
+      throw new AppError("Invalid Credentials",400);
     }
 
      res.status(200).json({
