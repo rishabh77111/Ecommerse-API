@@ -6,7 +6,7 @@ import { connectDatabase } from "./config/db.config";
 const PORT=process.env.PORT;
 
 //! database connection
-const DB_URI=process.env.URI!!;
+const DB_URI=process.env.DB_URI!!;
 connectDatabase(DB_URI);
 
 //!

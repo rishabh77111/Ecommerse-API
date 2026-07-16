@@ -4,6 +4,7 @@ import { comparePassword, hashPassword } from "../utils/bcrypt.utils";
 import AppError from "../utils/customError.utils";
 import { catchAsync } from "../utils/catchAsync.utils";
 import { sendResponse } from "../utils/sendResonse.utils";
+import { upload } from "../utils/cloudinary.utils";
 
 //! register
 
@@ -50,7 +51,12 @@ export const register = catchAsync(async ( req: Request,res: Response) => {
 
     //* upload profile image
     if(file){
-      user.profile_image=file.path;
+      // user.profile_image=file.path;
+      const {path,public_id}=await upload(file,"/profile_image")
+      user.profile_image={
+        path:path,
+        public_id:public_id,
+      }
     }
     //* save user
      await user.save();

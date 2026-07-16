@@ -29,7 +29,7 @@ export const uploader=()=>{
 const fileFilter=(req:Request,file:Express.Multer.File,cb:FileFilterCallback)=>{
 
     //* check file_ext allowed
-const file_ext=path.extname(file.originalname);
+const file_ext=path.extname(file.originalname).toLocaleLowerCase();
 if(!allowed_extensions.includes(file_ext)){
     cb(new AppError(`Invalid File extension.Only ${allowed_extensions.join(",")}are allowed`,400));
     return;
