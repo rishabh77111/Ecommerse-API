@@ -5,6 +5,7 @@ import AppError from "../utils/customError.utils";
 import { catchAsync } from "../utils/catchAsync.utils";
 import { sendResponse } from "../utils/sendResonse.utils";
 import { upload } from "../utils/cloudinary.utils";
+import { genrateJwtToken } from "../utils/jwt.utils";
 
 //! register
 
@@ -143,15 +144,29 @@ export const login = async (
       // throw error;
       throw new AppError("Invalid Credentials",400);
     }
+    //! convert user document to object
+    const {password:p,__v,...rest}=user.toObject();
+
+    //!genrate jwt token
+
+    const access_token=genrateJwtToken({
+        _id:user._id,
+        email:user.email,
+        role:user.role,
+    });
 
      res.status(200).json({
       message:"Login successfull",
-      data:{
-        _id:user._id,
-        email:user.email,
-        full_name:user.full_name,
-        role:user.role,
-      },
+      // data:{
+      //   user:{
+      //   _id:user._id,
+      //   email:user.email,
+      //   full_name:user.full_name,
+      //   role:user.role,
+      //   },
+      //   access_token,
+      // },
+      data:{user:rest,access_token},
       status:"success",
       success:true,
     });
