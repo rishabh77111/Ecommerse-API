@@ -2,6 +2,8 @@ import express, { NextFunction, Request, Response } from 'express';
 import { errorHandler } from './middlewares/errorHandler.middleware.js';
 import authRoutes from './routes/auth.routes.js';
 import brandRoutes from './routes/brand.routes.js'
+import AppError from './utils/customError.utils.js';
+
 //import userRouter from './routes/user.routes';
 
 
@@ -30,11 +32,13 @@ app.use((req,res,next)=>{
   
     const message=`can not ${req.method} on ${req.path}`;
 
-    const error:any=new Error(message);
-    error.status="fail";
-    error.statusCode=404;
-    //console.log(error);
-    next(error);
+    next(new AppError(message,400));
+
+    // const error:any=new Error(message);
+    // error.status="fail";
+    // error.statusCode=404;
+    
+    // next(error);
     // next({
     //   message,
     //   status:"fail",

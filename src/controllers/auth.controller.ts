@@ -10,6 +10,8 @@ import { sendResponse } from "../utils/sendResonse.utils";
 export const register = catchAsync(async ( req: Request,res: Response) => {
  
     const {full_name,email,password}=req.body;
+    console.log(req.file);
+    const file=req.file;
     if(!full_name){
 
       // const error:any=new Error("full_name is required");
@@ -47,6 +49,9 @@ export const register = catchAsync(async ( req: Request,res: Response) => {
     user.password=hash;
 
     //* upload profile image
+    if(file){
+      user.profile_image=file.path;
+    }
     //* save user
      await user.save();
     //* success response
@@ -56,6 +61,7 @@ export const register = catchAsync(async ( req: Request,res: Response) => {
         _id:user._id,
         email:user.email,
         full_name:user.full_name,
+        profile_image:user.profile_image,
         role:user.role,
       },
     statusCode:201});
