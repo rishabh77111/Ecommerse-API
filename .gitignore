@@ -145,3 +145,4 @@ vite.config.ts.timestamp-*
 #write during project
 node_modules
 dist
+.env

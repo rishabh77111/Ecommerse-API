@@ -1,14 +1,15 @@
+import "dotenv/config"
 import app from "./app";
 import { connectDatabase } from "./config/db.config";
 
 
-const port=8004;
+const PORT=process.env.PORT;
 
 //! database connection
-const DB_URI="mongodb://localhost:27017/ecommerseAPI";
+const DB_URI=process.env.URI!!;
 connectDatabase(DB_URI);
 
 //!
-app.listen(port,()=>{
-    console.log(`server is running at http://localhost:${port}`);
+app.listen(PORT,()=>{
+    console.log(`server is running at http://localhost:${PORT}`);
 });
